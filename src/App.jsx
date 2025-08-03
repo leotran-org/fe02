@@ -14,16 +14,14 @@ import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import Footer from "./pages/Footer";
 
+
 function App() {
   return (
-    <div className="scroll-smooth">
+    <div className="scroll-smooth min-h-screen">
     
     <NavBar />
     
-    <div className="min-h-screen bg-white">
-      {/* Your content goes here */}
-    </div>
-
+    <Home />
     </div>
   );
 }

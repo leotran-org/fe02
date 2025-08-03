@@ -1,45 +1,117 @@
-import avatar from "../assets/avatar.png";
+import './Home.css';
 
-export default function Home() {
+
+import avatar from "../assets/about.png";
+
+import FAlinkedin from "../assets/linkedin.png";
+import FAFacebook from "../assets/facebook.png";
+import FAYoutube from "../assets/youtube.png";
+import FAEmail from "../assets/gmail.png";
+import FAPhone from "../assets/phone.png";
+
+import React, { useEffect } from 'react';
+
+const Home = () => {
+  useEffect(() => {
+    const spinningText = document.getElementById("Spinning-Text");
+    if (spinningText) {
+      const words = [
+        "Leo Trần",
+        "Trần Kim Duy Lân",
+        "đổi mới & sáng tạo",
+      ];
+      let currentIndex = 0;
+      spinningText.textContent = words[0];
+
+      const animate = () => {
+        spinningText.style.animation = "textFadeOut 0.5s forwards ease";
+        setTimeout(() => {
+          currentIndex = (currentIndex + 1) % words.length;
+          spinningText.textContent = words[currentIndex];
+          spinningText.style.animation = "textFadeIn 0.5s forwards ease";
+        }, 500);
+      };
+
+      const intervalId = setInterval(animate, 2000);
+
+      return () => clearInterval(intervalId); // Clean up on unmount
+    }
+  }, []);
+
   return (
-    <section
-      id="home"
-      className="min-h-screen bg-gradient-to-r from-white via-purple-50 to-teal-50 scroll-mt-20 flex items-center justify-center px-6"
-    >
-      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 items-center gap-6 py-12">
-        {/* Left text content */}
-        <div>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
-            Xin chào, tôi là <br />
-            <span className="text-purple-600">Trần Kim Duy Lân</span>
-            <br />
-            <span className="text-purple-600"> (Leo Tran)</span>
-          </h1>
+    <div className="hero-wrapper">
+      <section className="hero" id="home">
+        <div className="hero-container">
+          <div className="left-content">
+            <div className="title-container">
+              <h3 className="greeting" data-i18n="greeting">I'm</h3>
+              <h1 id="Spinning-Text">Enesehs</h1>
+            </div>
 
-          <h2 className="text-xl md:text-2xl font-medium text-gray-700 mb-6">
-            Chuyên gia Công nghệ & Đổi mới Sáng tạo
-          </h2>
+            <div className="about-me">
+              <p data-i18n="about_me">
+                Tôi là Trần Kim Duy Lân (Leo Tran), một chuyên gia trong lĩnh vực 
+                công nghệ, blockchain, trí tuệ nhân tạo và khởi nghiệp tại Việt Nam.
+                Với sứ mệnh "Kết nối - Phát triển - Truyền cảm hứng, tôi cam kết xây
+                dựng một hệ sinh thái công nghệ mạnh mẽ, bền vững và góp phần thúc 
+                đẩy chuyển đổi số toàn diện cho doanh nghiệp và xã hội.
+              </p>
+            </div>
 
-          <p className="text-gray-600 mb-6 max-w-xl text-lg md:text-xl">
-            <strong>Kết nối - Phát triển - Truyền cảm hứng</strong>
-          </p>
+            <div className="cta-buttons">
+              <a href="#about" className="cta-btn primary-btn" data-i18n="learn_more">Learn More</a>
+              <a href="#projects" className="cta-btn secondary-btn" data-i18n="see_projects">See My Projects</a>
+            </div>
+          </div>
 
-          <a href="#contact">
-            <button className="bg-purple-500 hover:bg-purple-600 text-white font-semibold px-6 py-3 rounded-md shadow transition">
-              Kết nối ngay
-            </button>
-          </a>
+          <div className="right-content">
+            <div className="profile-container">
+              <div className="profile-frame">
+                <img
+                  id="profile-pic"
+                  src={avatar}
+                  draggable="false"
+                  alt="LeoTran"
+                  data-nosnippet
+                />
+              </div>
+
+              <div className="social-media">
+                <ul className="social-icons">
+                  <li>
+                    <a href="https://www.linkedin.com/" aria-label="LinkedIn">
+                      <img src={FAlinkedin} alt="LinkedIn" id="linkedin" draggable="false" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.facebook.com/" aria-label="Facebook">
+                        <img src={FAFacebook} alt="Facebook" id="facebook" draggable="false" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.youtube.com/" aria-label="YouTube">
+                      <img src={FAYoutube} alt="YouTube" id="youtube" draggable="false" />
+                    </a>
+                  </li>
+                    <li>
+                        <a href="leotran@gmail.com" aria-label="Email">
+                            <img src={FAEmail} alt="Email" id="email" draggable="false" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="PhoneNumber" aria-label="Phone">
+                            <img src={FAPhone} alt="Phone" id="phone" draggable="false" />
+                        </a>
+                    </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <div className="flex justify-center">
-          <img
-            src={avatar}
-            alt="Trần Kim Duy Lân"
-            className="w-72 h-auto rounded-2xl shadow-lg object-cover transform md:scale-150 transition-transform duration-300"
-          />
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
-}
+};
+
+export default Home;
 
