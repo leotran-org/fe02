@@ -1,0 +1,179 @@
+header {
+    position: fixed;
+    width: 100%;
+    padding: 25px 50px;
+    transition: .6s ease;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    box-sizing: border-box
+}
+
+header.sticky {
+    padding: 12px 30px;
+    background-color: rgba(225, 225, 225, .07);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
+    z-index: 999
+}
+
+header.sticky .logo img {
+    height: 28px
+}
+
+header.sticky nav ul li a {
+    font-size: .95em
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative
+}
+
+.logo img {
+    height: 40px;
+    transition: .6s ease
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+    margin: 0
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 500;
+    transition: all .3s ease;
+    opacity: .75;
+    position: relative;
+    padding: 5px 0
+}
+
+nav ul li a.active,
+nav ul li a:hover {
+    opacity: 1;
+    color: var(--white)
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1.4px;
+    bottom: 0;
+    left: 0;
+    background: var(--white);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform .3s ease;
+    border-radius: 2px
+}
+
+nav ul li a.active::after,
+nav ul li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1001
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: var(--white);
+    transition: transform .3s ease, opacity .3s ease
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg)
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg)
+}
+
+body.no-scroll {
+    overflow: hidden
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 22px;
+    top: 2px;
+    margin-left: 8px
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(232, 232, 232, .15);
+    transition: .3s ease;
+    border-radius: 34px;
+    border: 1px solid rgba(255, 255, 255, .1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .1)
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 2px;
+    background-color: var(--white);
+    transition: .3s ease;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2)
+}
+
+input:checked+.slider {
+    background: var(--gradient);
+    border-color: rgba(255, 255, 255, .2)
+}
+
+input:checked+.slider:before {
+    transform: translateX(19px)
+}
+
+.slider:hover {
+    background-color: rgba(232, 232, 232, .25)
+}
+
+input:checked+.slider:hover {
+    opacity: .95
+}
+

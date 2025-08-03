@@ -2,19 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
+@font-face {
+  font-family: 'MonaSansExpanded';
+  src: url('./assets/font/MonaSans_Expanded-Regular.ttf') format('truetype'),
+       url('./assets/font/MonaSans_Expanded-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
+@font-face {
+  font-family: 'MonaSansMedium';
+  src: url('./assets/font/MonaSans-Medium.ttf') format('truetype'),
+       url('./assets/font/MonaSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+
+:root {
+    --dark: #212121;
+    --white: #e8e8e8;
+    --transparent: #ffffff00;
+    --header: #ffffff08;
+    --one: #0066ff;
+    --two: #6b4aff;
+    --three: #6464ff;
+    --four: #32a0dc;
+    --five: #0066ff;
+    --bg-empty: linear-gradient(40deg, #080a0f, #001120);
+    --gradient: linear-gradient(90deg, var(--one), var(--two), var(--three), var(--four), var(--five));
+    --gradient-animated: linear-gradient(90deg, var(--one), var(--two), var(--three), var(--four), var(--five));
+    --one-rgb: 0, 102, 255;
+    --two-rgb: 107, 74, 255;
+    --three-rgb: 100, 100, 255;
+    --four-rgb: 50, 160, 220
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: MonaSansExpanded
+}
+
+html {
+    overflow-x: hidden;
+    scroll-behavior: smooth
+}
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    color: var(--dark);
+    background: var(--bg-empty);
+    overflow-x: hidden;
+    width: 100%
 }
+
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

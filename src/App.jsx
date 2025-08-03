@@ -17,26 +17,12 @@ import Footer from "./pages/Footer";
 function App() {
   return (
     <div className="scroll-smooth">
-      <NavBar />
-        <Home />
-
-        <About />
-
-        <Experience />
-
-        <Awards />
-
-        <Consultancy />
     
-        <Activity />
-
-        <Certificate />
-        
-        <Projects />
-
-        <Contact />
+    <NavBar />
     
-        <Footer />
+    <div className="min-h-screen bg-white">
+      {/* Your content goes here */}
+    </div>
 
     </div>
   );

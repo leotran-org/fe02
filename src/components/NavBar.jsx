@@ -1,60 +1,44 @@
 import { useState, useEffect } from "react";
 import { Sparkle } from "lucide-react";
 import navLinks from "../constants/navLinks";
+import logo from "../assets/logo.png";
+import "./NavBar.css"; 
 
-export default function NavBar() {
-  const [activeSection, setActiveSection] = useState("home");
+import React from 'react';
 
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.5,
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    }, observerOptions);
-
-    const sections = document.querySelectorAll("section");
-
-    sections.forEach((section) => observer.observe(section));
-
-    // Cleanup observer on unmount
-    return () => {
-      sections.forEach((section) => observer.unobserve(section));
-    };
-  }, []);
-
+const NavBar = () => {
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow z-50">
-      <div className="flex items-center justify-center px-2 py-2 sm:py-4 sm:px-4">
-        <div className="hidden sm:flex flex-wrap justify-center gap-4 text-sm font-medium">
-          {navLinks.map((link) => (
-            <a
-              key={link.id}
-              href={`#${link.id}`}
-              className={`px-3 py-1.5 rounded-md transition-colors duration-200 ${
-                activeSection === link.id
-                  ? "bg-purple-500 text-white"
-                  : `text-black ${link.hoverColor}`
-              }`}
-            >
-              {link.label}
-            </a>
-          ))}
+    <header>
+      <nav>
+        <div className="logo">
+          <a href="#">
+            <img src={logo} alt="Leo Tran Logo" draggable="false" />
+          </a>
         </div>
-
-        {/* Mobile Logo */}
-        <div className="flex sm:hidden items-center justify-center w-full">
-          <Sparkle className="w-5 h-5 text-purple-500" />
+        <div className="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-      </div>
-    </nav>
+        <ul className="nav-section">
+  {navLinks.map((link) => (
+    <li key={link.id}>
+      <a href={`#${link.id}`} className={link.hoverColor} data-i18n={`nav_${link.id}`}>
+        {link.label}
+      </a>
+    </li>
+  ))}
+  <li>
+    <label className="switch">
+      <input type="checkbox" id="toggleButton" defaultChecked />
+      <span className="slider"></span>
+    </label>
+  </li>
+</ul>
+      </nav>
+    </header>
   );
-}
+};
+
+export default NavBar;
 
