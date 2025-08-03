@@ -15,13 +15,26 @@ import Contact from "./pages/Contact";
 import Footer from "./pages/Footer";
 
 
+import Background from './components/Background'
+
 function App() {
   return (
     <div className="scroll-smooth min-h-screen">
     
     <NavBar />
     
+    <Background />
     <Home />
+    <About />
+    <Experience />
+    <Awards />
+    <Consultancy />
+    <Activity />
+    <Certificate />
+    <Projects />
+    <Contact />
+    <Footer />
+
     </div>
   );
 }
