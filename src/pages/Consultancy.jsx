@@ -10,7 +10,8 @@ import {
 export default function Consultancy() {
   return (
     <section id="consultancy">
-      <div className="flex flex-col items-center justify-center px-6 scroll-mt-20 bg-gradient-to-r from-white via-purple-50 to-teal-50">
+      <div className="relative min-h-screen w-full flex items-center justify-center pt-5 text-white">
+
 
         <div className="w-full max-w-6xl mx-auto py-12">
           <h3 className="text-center text-lg font-medium text-gray-500 mb-2">

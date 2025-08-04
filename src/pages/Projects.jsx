@@ -5,7 +5,8 @@ export default function Projects() {
     <section
       id="projects"
     > 
-      <div className="min-h-screen flex flex-col items-center justify-center px-6 scroll-mt-20 bg-gradient-to-r from-white via-purple-50 to-teal-50">
+    <div className="relative min-h-screen w-full flex items-center justify-center pt-5 text-white">
+
       <div className="w-full max-w-5xl">
         <h2 className="text-4xl font-extrabold text-center text-indigo-800 mb-12 tracking-tight">
           📘 Topics & Dự án

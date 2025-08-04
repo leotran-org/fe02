@@ -1,12 +1,12 @@
 .color-point {
-  width: 250px;
-  height: 250px;
+  width: 100px;
+  height: 100px;
   background: radial-gradient(circle, #ff69b4, #ffd700);
   border-radius: 50%;
-  filter: blur(150px);
-  opacity: 0.2;
+  filter: blur(100px);
+  opacity: 0.10;
   animation: pulse 4s ease-in-out infinite;
-  position: absolute;
+  position: fixed;
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 10;
@@ -16,9 +16,9 @@
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.2;
-  position: absolute;
+  filter: blur(120px);
+  opacity: 0.10;
+  position: fixed;
   pointer-events: none;
   z-index: 1;
 }

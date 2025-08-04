@@ -6,8 +6,9 @@ export default function Contact() {
     <section
       id="contact"
 >
-      <div className="min-h-screen flex flex-col items-center justify-center px-6 scroll-mt-20 bg-gradient-to-r from-white via-purple-50 to-teal-50">
+      <div className="relative min-h-screen w-full flex items-center justify-center pt-5 text-white">
 
+    
       <div className="w-full max-w-6xl rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-10 p-10 items-center">
         
         {/* Left: Image */}

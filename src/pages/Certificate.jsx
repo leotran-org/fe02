@@ -28,10 +28,11 @@ export default function Certificate() {
   return (
     <section
       id="certificate">
-      <div className="min-h-screen flex flex-col items-center justify-center px-6 scroll-mt-20 bg-gradient-to-r from-white via-purple-50 to-teal-50">
+      <div className="relative min-h-screen w-full flex items-center justify-center pt-5 text-white">
+
 
       <div className="w-full max-w-4xl bg-transparent backdrop-blur-lg rounded-3xl p-10">
-        <h2 className="text-4xl md:text-5xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600 mb-16">
+        <h2 className="text-4xl md:text-5xl font-bold text-center text-transparent bg-clip-text text-amber-400 mb-16">
           Chứng chỉ quốc tế về công nghệ & khoa học dữ liệu
         </h2>
 
@@ -47,17 +48,17 @@ export default function Certificate() {
             >
               {/* Timeline Dot and Line */}
               <div className="flex flex-col items-center">
-                <div className="bg-white rounded-full border-4 border-indigo-500 p-[2px] z-10 shadow-md">
-                  <CircleDot className="w-5 h-5 text-indigo-600" />
+                <div className="bg-white rounded-full border-4 border-amber-500 p-[2px] z-10 shadow-md">
+                  <CircleDot className="w-5 h-5 text-amber-600" />
                 </div>
                 {idx !== certificates.length - 1 && (
-                  <div className="flex-1 w-px bg-gradient-to-b from-indigo-400 to-indigo-200 mt-1" />
+                  <div className="flex-1 w-px bg-gradient-to-b from-amber-500 to-amber-200 mt-1" />
                 )}
               </div>
 
               {/* Certificate Content */}
-              <div className="bg-white/90 border border-indigo-100 rounded-xl p-5 shadow-sm hover:shadow-xl transition-shadow duration-300">
-                <h3 className="font-semibold text-indigo-700 text-lg leading-tight">
+              <div className="bg-white/5 rounded-xl p-5 shadow-[0_4px_15px_rgba(255,255,255,0.1)] transition-shadow duration-300">
+                <h3 className="font-semibold text-amber-100/70 text-lg leading-tight">
                   {cert.title}
                 </h3>
                 <p className="text-sm text-gray-500 mt-1">{cert.date}</p>
