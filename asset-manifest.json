@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/portfolio/static/css/main.e891d40f.css",
+    "main.js": "/portfolio/static/js/main.e952153c.js",
+    "static/js/453.ad7768ec.chunk.js": "/portfolio/static/js/453.ad7768ec.chunk.js",
+    "static/media/activity.png": "/portfolio/static/media/activity.8dda454b1c40c8713b7e.png",
+    "static/media/cbs.png": "/portfolio/static/media/cbs.d6d5291f44218f3e4689.png",
+    "static/media/avatar.png": "/portfolio/static/media/avatar.7fc8b305fd90a25e3ac4.png",
+    "static/media/award1.png": "/portfolio/static/media/award1.ecde53f1c0138ec227aa.png",
+    "static/media/avatar2.png": "/portfolio/static/media/avatar2.062794815b0e9f91b1f6.png",
+    "static/media/rmit.png": "/portfolio/static/media/rmit.defda0457d650ec78b62.png",
+    "static/media/award2.png": "/portfolio/static/media/award2.56947632408a2b010cb4.png",
+    "static/media/award3.png": "/portfolio/static/media/award3.e3f3546c674656640409.png",
+    "static/media/MonaSans-Medium.ttf": "/portfolio/static/media/MonaSans-Medium.02b433a7b354478a6551.ttf",
+    "static/media/MonaSans_Expanded-Regular.ttf": "/portfolio/static/media/MonaSans_Expanded-Regular.4773f433cb7b68b5d007.ttf",
+    "static/media/logo.png": "/portfolio/static/media/logo.1abfa39c3a9ce7abbe43.png",
+    "static/media/wave.webp": "/portfolio/static/media/wave.bd2c2a5bfd90da9464aa.webp",
+    "static/media/placeholder.svg": "/portfolio/static/media/placeholder.55cc1c386ab84807b308bf085d622d6c.svg",
+    "index.html": "/portfolio/index.html",
+    "main.e891d40f.css.map": "/portfolio/static/css/main.e891d40f.css.map",
+    "main.e952153c.js.map": "/portfolio/static/js/main.e952153c.js.map",
+    "453.ad7768ec.chunk.js.map": "/portfolio/static/js/453.ad7768ec.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e891d40f.css",
+    "static/js/main.e952153c.js"
+  ]
+}
