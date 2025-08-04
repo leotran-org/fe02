@@ -20,7 +20,7 @@ export default function About() {
 
           {/* Right: About Content */}
           <div className="flex flex-col justify-center">
-            <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-6 mix-blend-lighten text-amber-400">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-amber-400 mb-6 mix-blend-lighten text-amber-400">
               About Me
             </h2>
             <p className="text-gray-300 text-base md:text-lg leading-relaxed mix-blend-lighten">

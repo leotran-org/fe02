@@ -30,10 +30,9 @@ export default function Certificate() {
       id="certificate">
       <div className="relative min-h-screen w-full flex items-center justify-center pt-5 text-white">
 
-
       <div className="w-full max-w-4xl bg-transparent backdrop-blur-lg rounded-3xl p-10">
-        <h2 className="text-4xl md:text-5xl font-bold text-center text-transparent bg-clip-text text-amber-400 mb-16">
-          Chứng chỉ quốc tế về công nghệ & khoa học dữ liệu
+        <h2 className="text-4xl md:text-5xl font-bold text-center bg-clip-text text-transparent mb-16">
+          <span className="text-amber-400">Chứng chỉ quốc tế về công nghệ & khoa học dữ liệu</span>
         </h2>
 
         <div className="space-y-10">

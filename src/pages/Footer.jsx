@@ -1,57 +1,81 @@
-import { FaEnvelope, FaLinkedin } from "react-icons/fa";
+import React from "react";
+import waveImg from "../assets/wave.webp"; // adjust path if needed
 
-export default function Footer() {
+const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-purple-100 via-indigo-100 to-teal-100 text-gray-700">
-      <div className="max-w-6xl mx-auto px-6 py-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+    <footer className="relative bg-[#21212145] pt-[100px] px-[50px] pb-[30px] mt-[196px]">
+      {/* Waves */}
+      <div className="absolute top-0 left-0 w-full h-[100px] opacity-[0.28] overflow-hidden">
+        {[1, 2, 3, 4].map((num) => (
+          <div
+            key={num}
+            id={`wave${num}`}
+            className={`absolute bottom-[100px] left-0 w-full h-[100px] bg-[length:1000px_100px] ${
+              num % 2 === 0 ? "animate-wave2" : "animate-wave1"
+            }`}
+            style={{
+              backgroundImage: `url(${waveImg})`,
+              zIndex: 1000 - num + 1,
+              opacity: [0.5, 0.7, 0.3, 0.6][num - 1],
+            }}
+          ></div>
+        ))}
+      </div>
 
-        {/* Logo or Title */}
-        <div>
-          <h1 className="text-xl font-bold text-blue-900">Trần Kim Duy Lân</h1>
-          <p className="text-xs text-gray-600 mt-1">
-          Chuyên gia Công nghệ & Đổi mới Sáng tạo
-          </p>
-        </div>
-
-        {/* Navigation Links */}
-        <div>
-          <h2 className="text-base font-semibold text-blue-900 mb-1">Navigation</h2>
-          <ul className="space-y-1">
-            <li><a href="#home" className="hover:underline">Home</a></li>
-            <li><a href="#projects" className="hover:underline">Projects</a></li>
-            <li><a href="#about" className="hover:underline">About</a></li>
-            <li><a href="#contact" className="hover:underline">Contact</a></li>
-          </ul>
-        </div>
-
-        {/* Contact Info */}
-        <div>
-          <h2 className="text-base font-semibold text-blue-900 mb-1">Contact</h2>
-          <div className="flex items-center space-x-2 mb-1">
-            <FaEnvelope className="text-yellow-600" />
-            <a href="mailto:lankimduytran@gmail.com" className="hover:underline text-xs">
-              lankimduytran@gmail.com
+      {/* Social Icons */}
+      <ul className="flex justify-center items-center flex-wrap gap-5 mb-[30px] list-none">
+        {[
+          { id: "linkedin", href: "https://www.linkedin.com/in/enesehs/", src: "/public/assets/links/linkedin.webp", alt: "LinkedIn" },
+          { id: "github", href: "https://github.com/enesehs", src: "/public/assets/links/github.webp", alt: "GitHub" },
+          { id: "plasenta-footer", href: "#", src: "/public/assets/links/Plasenta.webp", alt: "Plasenta" },
+          { id: "instagram", href: "https://www.instagram.com/enesehs.dev/", src: "/public/assets/links/instagram.webp", alt: "Instagram" },
+          { id: "spotify", href: "https://open.spotify.com/user/21a6im72dymlsyyaasjejv2by?si=d8545eb4f9984aa4", src: "/public/assets/links/spotify.webp", alt: "Spotify" },
+          { id: "youtube", href: "https://www.youtube.com/@enesehs", src: "/public/assets/links/youtube.webp", alt: "YouTube", size: "w-[50px]" },
+        ].map(({ id, href, src, alt, size = "w-[40px]" }) => (
+          <li key={id}>
+            <a href={href} className="flex justify-center items-center w-[45px] h-[45px] transition-all duration-400 ease-in-out hover:-translate-y-[5px]">
+              <img
+                src={src}
+                alt={alt}
+                id={id}
+                loading="lazy"
+                draggable="false"
+                className={`${size} h-auto opacity-75 hover:opacity-100`}
+              />
             </a>
-          </div>
-          <div className="flex items-center space-x-2">
-            <FaLinkedin className="text-blue-700" />
+          </li>
+        ))}
+      </ul>
+
+      {/* Footer Menu */}
+      <ul className="flex justify-center items-center flex-wrap gap-5 list-none my-[30px]">
+        {[
+          { href: "#", label: "Home", i18n: "nav_home" },
+          { href: "#projects", label: "Projects", i18n: "nav_projects" },
+          { href: "#skills", label: "Skills", i18n: "nav_skills" },
+          { href: "#certificates", label: "Certificates", i18n: "nav_certificates" },
+          { href: "#about", label: "About", i18n: "nav_about" },
+          { href: "#contact", label: "Contact", i18n: "nav_contact" },
+        ].map(({ href, label, i18n }) => (
+          <li key={label}>
             <a
-              href="https://linkedin.com/in/lankimduytran"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline text-xs"
+              href={href}
+              data-i18n={i18n}
+              className="text-white opacity-80 text-base transition-all duration-300 relative hover:opacity-100 after:content-[''] after:absolute after:w-full after:h-[1px] after:bottom-0 after:left-0 after:bg-white after:scale-x-0 after:origin-bottom-right hover:after:scale-x-100 hover:after:origin-bottom-left after:transition-transform after:duration-300"
             >
-              linkedin.com/in/lankimduytran
+              {label}
             </a>
-          </div>
-        </div>
-      </div>
+          </li>
+        ))}
+      </ul>
 
-      {/* Bottom Bar */}
-      <div className="text-center text-xs text-gray-500 border-t border-gray-300 py-2">
-        &copy; {new Date().getFullYear()} Trần Kim Duy Lân. All rights reserved.
-      </div>
+      {/* Footer Text */}
+      <p className="text-center mt-5 text-white opacity-60 text-sm" data-i18n="footer_copyright">
+        &copy; 2025 Enesehs | All Rights Reserved
+      </p>
     </footer>
   );
-}
+};
+
+export default Footer;
 
