@@ -28,9 +28,9 @@ export default function Certificate() {
   return (
     <section
       id="certificate">
-      <div className="relative min-h-screen w-full flex items-center justify-center pt-5 text-white">
+      <div className="relative min-h-screen w-full flex items-center justify-center text-white pt-5">
 
-      <div className="w-full max-w-4xl bg-transparent backdrop-blur-lg rounded-3xl p-10">
+      <div className="w-full max-w-4xl bg-transparent backdrop-blur-lg rounded-3xl px-10 pb-10">
         <h2 className="text-4xl md:text-5xl font-bold text-center bg-clip-text text-transparent mb-16">
           <span className="text-amber-400">Chứng chỉ quốc tế về công nghệ & khoa học dữ liệu</span>
         </h2>

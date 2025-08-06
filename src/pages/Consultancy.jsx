@@ -74,8 +74,9 @@ export default function Consultancy() {
             <span className="text-amber-400">Chuyên môn & Dịch vụ hợp tác</span>
           </h2>
 
-          <div className="overflow-x-auto scrollbar-hide flex justify-center">
-            <div className="flex gap-x-6 min-w-max w-fit pb-4">
+        <div className="md:flex md:justify-center md:overflow-visible overflow-x-auto scrollbar-hide w-full px-4 md:px-0">
+            <div className="flex gap-x-6 w-max md:w-auto pb-4">
+
               {cardPairs.map((pair, index) => (
                 <div
                   key={index}
