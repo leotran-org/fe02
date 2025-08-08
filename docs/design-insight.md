@@ -8,7 +8,7 @@ Tôi muốn bạn xây dựng một **trang blog cá nhân** dành cho một **C
 
 - **Tối giản nhưng tinh tế**: sử dụng không gian trắng hiệu quả, hạn chế chi tiết thừa. Hãy giữ bố cục gọn gàng, có trật tự.
 - **Hiệu ứng chuyển động nhẹ nhàng**: áp dụng animation mượt mà cho tiêu đề, hình ảnh và khi cuộn trang để tạo cảm giác sống động.
-- **Màu sắc trung tính hiện đại**: tông nền trắng/xám nhạt, kết hợp với màu nhấn như đen, vàng nhẹ, cam nhạt hoặc xanh xám.
+- **Màu sắc trung tính hiện đại**: tông nền trắng/xám nhạt, kết hợp với màu nhấn là hổ phách.
 - **Typography rõ ràng, đậm nét**: sử dụng font sans-serif hiện đại, kết hợp giữa tiêu đề đậm và nội dung mảnh.
 - **Responsive và tối ưu cho thiết bị di động**.
 
