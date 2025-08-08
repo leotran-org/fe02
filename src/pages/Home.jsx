@@ -83,7 +83,7 @@ const CallToActionButtons = () => (
     <a
       href="#projects"
       className="inline-block px-8 py-3 rounded-full border backdrop-blur-md text-white font-medium text-base transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] relative overflow-hidden z-10
-      bg-gradient-to-br from-purple-300/20 to-pink-300/20 border-[rgba(255,255,255,0.2)]
+      bg-gradient-to-br from-amber-400/20 to-yellow-200/30 border-[rgba(255,255,255,0.2)]
       hover:-translate-y-1.5 hover:shadow-lg hover:after:opacity-15"
       data-i18n="see_projects"
     >
