@@ -1,8 +1,7 @@
 import { useMemo, useState, useEffect } from "react";
 import { Calendar, Clock, ArrowRight, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 import { Link } from "react-router-dom";
-
-import NavBar from "../components/NavBar";
+import { motion, AnimatePresence } from "framer-motion";
 
 /* ---------------------------------- Data ---------------------------------- */
 
