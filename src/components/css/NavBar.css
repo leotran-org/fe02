@@ -1,7 +1,7 @@
 header {
     position: fixed;
     width: 100%;
-    padding: 25px 50px;
+    padding: 15px 50px;
     transition: .6s ease;
     z-index: 1000;
     top: 0;
@@ -18,7 +18,7 @@ header.sticky {
   background: rgba(15, 15, 20, 0.6); /* or whatever matches your design */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  /*border-bottom: 1px solid rgba(255,255,255,0.08);*/
 }
 
 
