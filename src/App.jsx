@@ -1,12 +1,21 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import Portfolio from './pages/Portfolio';
+import Blog from './pages/Blog';
+import NotFound from './pages/notfound';
 
 
 function App() {
   return (
     <div className="scroll-smooth min-h-screen">
-      <Portfolio />
+      <Router basename="/fe02">
+        <Routes>
+            <Route path="/" element={<Portfolio />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
