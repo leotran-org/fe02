@@ -90,7 +90,7 @@ export default function NotFound() {
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
         >
           <a
-            href="/fe02"
+            href="/"
             className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 sm:px-5 sm:py-2.5 font-medium ring-1 ring-inset ring-neutral-300 dark:ring-neutral-700 hover:ring-neutral-400 dark:hover:ring-neutral-600 transition-shadow shadow-[0_1px_0_0_rgba(0,0,0,0.02)] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
           >
             <Home className="h-4 w-4" aria-hidden="true" />

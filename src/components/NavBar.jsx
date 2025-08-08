@@ -43,7 +43,7 @@ const NavBar = () => {
 
           {/* Special My Blog Link */}
           <li>
-            <a href="/fe02/blog" className="hover-blog">
+            <a href="/blog" className="hover-blog">
               My Blog
             </a>
           </li>

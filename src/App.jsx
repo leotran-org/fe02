@@ -10,7 +10,7 @@ import NotFound from './pages/notfound';
 function App() {
   return (
     <div className="scroll-smooth min-h-screen">
-      <Router basename="/fe02">
+      <Router basename="/">
         <Routes>
             <Route path="/" element={<Portfolio />} />
             <Route path="/blog" element={<Blog />} />
