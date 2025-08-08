@@ -31,11 +31,23 @@ const NavBar = () => {
         <ul className="nav-section">
           {navLinks.map((link) => (
             <li key={link.id}>
-              <a href={`#${link.id}`} className={link.hoverColor} data-i18n={`nav_${link.id}`}>
+              <a
+                href={`#${link.id}`}
+                className={link.hoverColor}
+                data-i18n={`nav_${link.id}`}
+              >
                 {link.label}
               </a>
             </li>
           ))}
+
+          {/* Special My Blog Link */}
+          <li>
+            <a href="/fe02/blog" className="hover-blog">
+              My Blog
+            </a>
+          </li>
+
           <li>
             <label className="switch">
               <input type="checkbox" id="toggleButton" defaultChecked />
