@@ -10,13 +10,17 @@ header {
 }
 
 header.sticky {
-    padding: 12px 30px;
-    background-color: rgba(225, 225, 225, .07);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
-    z-index: 999
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;         /* or width: 100% */
+  z-index: 1000;    /* above page content */
+  background: rgba(15, 15, 20, 0.6); /* or whatever matches your design */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
+
 
 header.sticky .logo img {
     height: 28px
