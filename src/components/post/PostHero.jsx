@@ -6,7 +6,7 @@ import { getCategories } from "../../utils/getCategories";
 
 export default function PostHero({ post }) {
   return (
-    <section className="relative pt-24 pb-10">
+    <section className="relative pt-24 pb-10 mb-10">
       <div className="absolute inset-0 -z-10">
         <img
           src={post.image}
