@@ -4,16 +4,16 @@
 
 @font-face {
   font-family: 'MonaSansExpanded';
-  src: url('./assets/font/MonaSans_Expanded-Regular.ttf') format('truetype'),
-       url('./assets/font/MonaSans_Expanded-Regular.ttf') format('truetype');
+  src: url('../assets/font/MonaSans_Expanded-Regular.ttf') format('truetype'),
+       url('../assets/font/MonaSans_Expanded-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'MonaSansMedium';
-  src: url('./assets/font/MonaSans-Medium.ttf') format('truetype'),
-       url('./assets/font/MonaSans-Medium.ttf') format('truetype');
+  src: url('../assets/font/MonaSans-Medium.ttf') format('truetype'),
+       url('../assets/font/MonaSans-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
