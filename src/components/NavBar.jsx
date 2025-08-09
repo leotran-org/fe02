@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import navLinks from "../constants/navLinks";
 import logo from "../assets/logo.png";
-import "./css/NavBar.css"; 
+import "../css/NavBar.css"; 
 
 const NavBar = () => {
   const [isSticky, setIsSticky] = useState(false);
