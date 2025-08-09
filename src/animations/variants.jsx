@@ -6,3 +6,13 @@ export const fadeUp = {
     transition: { duration: 0.5, ease: [0.2, 0.8, 0.2, 1] },
   },
 };
+
+export const stagger = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0.05,
+    },
+  },
+};
