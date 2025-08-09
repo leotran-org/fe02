@@ -6,6 +6,7 @@ import Blog from './pages/Blog';
 import Post from './pages/Post';
 import PostEdit from './pages/PostEdit';
 import NotFound from './pages/notfound';
+import Login from './pages/Login';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <div className="scroll-smooth min-h-screen">
       <Router basename="/">
         <Routes>
+            <Route path="/login" element={<Login />} />
             <Route path="/" element={<Portfolio />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/post/:id" element={<Post />} />
