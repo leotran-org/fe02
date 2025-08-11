@@ -7,6 +7,9 @@ import Post from './pages/Post';
 import PostEdit from './pages/PostEdit';
 import NotFound from './pages/notfound';
 import Login from './pages/Login';
+import Gallery from './pages/Gallery';
+import Media from './pages/Media';
+import MediaEdit from './pages/MediaEdit';
 
 
 function App() {
@@ -17,6 +20,9 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Portfolio />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/media/:id" element={<Media />} />
+            <Route path="/media/:id/edit" element={<MediaEdit />} />
             <Route path="/post/:id" element={<Post />} />
             <Route path="/post/:id/edit" element={<PostEdit />} />
             <Route path="*" element={<NotFound />} />

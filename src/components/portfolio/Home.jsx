@@ -74,20 +74,20 @@ const AboutText = () => (
 const CallToActionButtons = () => (
   <div className="flex flex-wrap gap-4">
     <a
-      href="#about"
+      href="/blog"
       className="inline-block px-8 py-3 rounded-full border border-white/20 backdrop-blur-md text-white font-medium text-base transition duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] relative overflow-hidden z-10 bg-white/10 hover:translate-y-[-6px] hover:shadow-lg hover:after:opacity-15"
       data-i18n="learn_more"
     >
-      Learn More
+      My Blog
     </a>
     <a
-      href="#projects"
+      href="/gallery"
       className="inline-block px-8 py-3 rounded-full border backdrop-blur-md text-white font-medium text-base transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] relative overflow-hidden z-10
       bg-gradient-to-br from-amber-400/20 to-yellow-200/30 border-[rgba(255,255,255,0.2)]
       hover:-translate-y-1.5 hover:shadow-lg hover:after:opacity-15"
       data-i18n="see_projects"
     >
-      See My Projects
+      Media Gallery
     </a>
   </div>
 );
