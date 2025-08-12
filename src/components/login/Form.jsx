@@ -15,18 +15,19 @@ export const LoginForm = ({ fadeUp, formData, errors, isLoading, handleSubmit, h
         <ErrorMessage message={errors.general} type="general" />
       )}
 
-      {/* Email Field */}
-      <InputField
-        id="email"
-        name="email"
-        type="email"
-        value={formData.email}
-        onChange={handleChange}
-        placeholder="admin@example.com"
-        label="Email Address"
-        error={errors.email}
-        icon={Mail}
-      />
+    {/* Username Field */}
+    <InputField
+      id="username"
+      name="username"
+      type="text"
+      value={formData.username}
+      onChange={handleChange}
+      placeholder="Enter your username"
+      label="Username"
+      error={errors.username}
+      icon={Mail} // Or replace with a User icon
+    />
+
 
       {/* Password Field */}
       <InputField

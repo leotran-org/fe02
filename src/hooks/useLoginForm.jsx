@@ -1,21 +1,23 @@
 import { useState } from "react";
+import axios from "axios";
+
+import { BACKEND_URL } from "../constants/backend";
 
 export const useLoginForm = () => {
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: ""
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
 
   const validateForm = () => {
     const newErrors = {};
-    
-    // Email validation
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
+
+    // Username validation
+    if (!formData.username) {
+      newErrors.username = "Username is required";
     }
 
     // Password validation
@@ -31,21 +33,48 @@ export const useLoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
+    if (!BACKEND_URL) {
+      setErrors({ general: "Missing BACKEND_URL in environment." });
+      return;
+    }
+
     setIsLoading(true);
-    
+    setErrors({});
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      if (formData.email === "admin@example.com" && formData.password === "admin123") {
-        alert("Login successful! Redirecting to dashboard...");
+      const { data } = await axios.post(
+        `${BACKEND_URL}/auth/login`,
+        {
+          username: formData.username,
+          password: formData.password
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+          // withCredentials: true, // uncomment if your backend sets auth cookies
+        }
+      );
+
+      const { session_id } = data || {};
+      if (session_id) {
+        setSessionId(session_id);
+        // Optional: persist if desired
+        // localStorage.setItem("session_id", session_id);
       } else {
-        setErrors({ general: "Invalid email or password" });
+        setErrors({ general: "Login failed: session_id not returned." });
       }
-    } catch (error) {
-      setErrors({ general: "Login failed. Please try again." });
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        const apiMessage =
+          err.response?.data?.message ||
+          err.response?.data?.error ||
+          err.message;
+        setErrors({ general: `Login failed: ${apiMessage}` });
+      } else {
+        setErrors({ general: "Login failed. Please try again." });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -53,10 +82,13 @@ export const useLoginForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
     if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: "" }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+    if (errors.general) {
+      setErrors((prev) => ({ ...prev, general: "" }));
     }
   };
 
@@ -64,7 +96,9 @@ export const useLoginForm = () => {
     formData,
     errors,
     isLoading,
+    sessionId,
     handleSubmit,
     handleChange
   };
 };
+
