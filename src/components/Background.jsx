@@ -6,7 +6,7 @@ const Background = () => {
   const velocities = useRef([]);
 
   useEffect(() => {
-    const colors = ['red', 'orange', 'yellow', 'amber'];
+    const colors = ['red', 'orange', 'yellow', 'amber', 'lime', 'brown'];
 
     // Initialize points
     colors.forEach((color, i) => {
