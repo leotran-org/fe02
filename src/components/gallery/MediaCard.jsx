@@ -12,7 +12,7 @@ export default function MediaCard({ item }) {
     <motion.div
       variants={fadeUp}
       className="break-inside-avoid my-8 cursor-pointer group"
-      onClick={() => navigate(`/media/${item.id}`)}
+      onClick={() => navigate(`/media/${item.slug}`)}
     >
       <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow hover:shadow-2xl transition">
         <img

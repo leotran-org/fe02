@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import BackButton from "./BackButton";
 import MetaChips from "./MetaChips";
 import { fadeUp } from "../../animations/variants";
+import { Home } from "lucide-react";
+
 
 export default function MediaHero({ item, Icon, onBack }) {
   return (
@@ -22,8 +24,18 @@ export default function MediaHero({ item, Icon, onBack }) {
       </div>
 
       <div className="container mx-auto px-6">
-        <BackButton onClick={onBack} className="mb-6" />
 
+    <div className="mb-6 flex items-center justify-between">
+      <BackButton onClick={onBack} />
+      <a
+        href="/gallery"
+        aria-label="Go to home"
+        className="group inline-flex items-center gap-2 rounded-xl border border-white/10 px-3 py-2 text-sm font-medium text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+      >
+        <Home className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
+        Gallery
+      </a>
+    </div>
         <motion.div initial="hidden" animate="visible" variants={fadeUp}>
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-2">
             <span className="text-white">{item.title} </span>

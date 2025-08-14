@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
-export default function DescriptionCard({ src }) {
+export default function DescriptionCard({ src, description }) {
   return (
     <div className="rounded-2xl border border-amber-400/30 bg-amber-400/10 p-5">
       <h3 className="text-base font-semibold text-amber-200">Mô tả</h3>
       <p className="text-sm text-amber-100/80 mt-1">
-        Bảng màu đồng bộ với Gallery: nền tối, viền mờ, điểm nhấn amber cho CTA & trạng thái.
+        {description || "Không có mô tả cho media này."}
       </p>
 
       {src && (

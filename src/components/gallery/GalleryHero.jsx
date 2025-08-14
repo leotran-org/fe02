@@ -5,10 +5,11 @@ import { fadeUp } from "../../animations/variants";
 export default function GalleryHero() {
   return (
     <section className="relative pt-28 pb-10">
-      <div className="absolute inset-0 -z-10">
-        {/* fixed typo in gradient: from-amber-500/20 */}
-        <div className="pointer-events-none absolute inset-0 opacity-60 bg-gradient-to-b from-amber-500/20 to-transparent" />
-      </div>
+        <div className="absolute inset-0 -z-10">
+            <div className="pointer-events-none absolute inset-0 opacity-60 [background:radial-gradient(60%_40%_at_50%_10%,rgba(245,158,11,0.18),transparent_70%)]" />
+            <div className="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_right,rgba(255,255,255,.3)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.3)_1px,transparent_1px)] [background-size:24px_24px]" />
+        </div>
+
       <div className="container mx-auto px-6 text-center">
         <motion.h1 initial="hidden" animate="visible" variants={fadeUp}
           className="text-4xl md:text-6xl font-bold tracking-tight mb-4">

@@ -1,7 +1,9 @@
+// constants/media.jsx
 const MEDIA_ITEMS = [
   // Images
   {
     id: 1,
+    slug: "sunlit-geometry",
     title: "Sunlit Geometry",
     type: "Image",
     tags: ["Design", "Inspiration", "Architecture"],
@@ -12,6 +14,7 @@ const MEDIA_ITEMS = [
   },
   {
     id: 2,
+    slug: "muted-tones-study",
     title: "Muted Tones Study",
     type: "Image",
     tags: ["Color", "UX"],
@@ -23,18 +26,19 @@ const MEDIA_ITEMS = [
   // Videos
   {
     id: 3,
+    slug: "motion-principles-reel",
     title: "Motion Principles Reel",
     type: "Video",
     tags: ["Motion", "Animation", "UX"],
     date: "Nov 5, 2024",
     duration: "1:12",
-    // Using an image placeholder as thumb; in real app use CDN poster frame
     src: "https://videos.pexels.com/video-files/856193/856193-uhd_2560_1440_25fps.mp4",
     thumb: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop",
   },
   // Audio
   {
     id: 4,
+    slug: "ambient-loop-01",
     title: "Ambient Loop 01",
     type: "Audio",
     tags: ["Sound", "Brand"],
@@ -46,6 +50,7 @@ const MEDIA_ITEMS = [
   // Illustrations
   {
     id: 5,
+    slug: "system-icons-set",
     title: "System Icons Set",
     type: "Illustration",
     tags: ["Icons", "Systems", "Design"],
@@ -57,6 +62,7 @@ const MEDIA_ITEMS = [
   // Documents
   {
     id: 6,
+    slug: "design-tokens-spec-pdf",
     title: "Design Tokens Spec.pdf",
     type: "Document",
     tags: ["Tokens", "Spec", "Best Practices"],
@@ -68,6 +74,7 @@ const MEDIA_ITEMS = [
   // More examples to fill a grid
   {
     id: 7,
+    slug: "grid-rhythm",
     title: "Grid Rhythm",
     type: "Image",
     tags: ["Layout", "CSS"],
@@ -78,6 +85,7 @@ const MEDIA_ITEMS = [
   },
   {
     id: 8,
+    slug: "reflections",
     title: "Reflections",
     type: "Image",
     tags: ["Photography", "Mood"],
@@ -88,6 +96,7 @@ const MEDIA_ITEMS = [
   },
   {
     id: 9,
+    slug: "prototype-walkthrough",
     title: "Prototype Walkthrough",
     type: "Video",
     tags: ["Prototype", "React"],
@@ -98,6 +107,7 @@ const MEDIA_ITEMS = [
   },
   {
     id: 10,
+    slug: "brand-stems",
     title: "Brand Stems",
     type: "Audio",
     tags: ["Brand", "Audio"],
@@ -108,6 +118,7 @@ const MEDIA_ITEMS = [
   },
   {
     id: 11,
+    slug: "palette-boards",
     title: "Palette Boards",
     type: "Illustration",
     tags: ["Color", "Inspiration"],
@@ -118,6 +129,7 @@ const MEDIA_ITEMS = [
   },
   {
     id: 12,
+    slug: "grid-cheatsheet-pdf",
     title: "Grid Cheatsheet.pdf",
     type: "Document",
     tags: ["CSS Grid", "Reference"],
@@ -128,5 +140,5 @@ const MEDIA_ITEMS = [
   },
 ];
 
-
 export default MEDIA_ITEMS;
+
