@@ -70,6 +70,25 @@ const Login = () => {
     navigate("/");
   }, [sessionId, navigate]);
 
+  // --- NEW: Logout handler
+  const handleLogout = async () => {
+    try {
+      // Optional: call your API to invalidate the session on the server.
+      // await fetch("/api/logout", { method: "POST", credentials: "include" });
+
+      Cookies.remove("session_id", { path: "/" });
+      setSessionData(null); // drops back to the login form on this page
+      setAuthChecked(true);
+      // stay on /login to show the form; navigate if you prefer:
+      // navigate("/login");
+    } catch (e) {
+      // no-op; still remove local cookie
+      Cookies.remove("session_id", { path: "/" });
+      setSessionData(null);
+      setAuthChecked(true);
+    }
+  };
+
   // Small helpers to display user info nicely
   const displayName =
     sessionData?.user?.name ||
@@ -91,7 +110,7 @@ const Login = () => {
     .slice(0, 2)
     .toUpperCase();
 
-  // --- NEW: If an active session is present, show information card + Home button
+  // --- If an active session is present, show information card + Home & Logout buttons
   if (authChecked && sessionData) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-amber-400/10 to-zinc-900 flex items-center justify-center p-6">
@@ -148,6 +167,13 @@ const Login = () => {
                 >
                   Go to Home
                 </button>
+                {/* NEW: Logout button */}
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-medium transition"
+                >
+                  Log out
+                </button>
               </div>
             </motion.div>
           </motion.div>
@@ -160,8 +186,7 @@ const Login = () => {
 
   // Default: show the login form (while checking or when not authenticated)
   return (
-      <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-amber-400/10 to-zinc-900 flex items-center justify-center p-6">
-
+    <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-amber-400/10 to-zinc-900 flex items-center justify-center p-6">
       <BackgroundEffects />
 
       <motion.div
@@ -187,6 +212,16 @@ const Login = () => {
               handleChange={handleChange}
             />
           </div>
+
+          {/* NEW: Home button when not logged in */}
+          <motion.div variants={fadeUp} className="mt-6 flex justify-center">
+            <button
+              onClick={() => navigate("/")}
+              className="px-4 py-2 rounded-xl bg-white/90 hover:bg-white text-slate-900 font-medium transition shadow"
+            >
+              Go to Home
+            </button>
+          </motion.div>
         </motion.div>
 
         <LoginFooter fadeUp={fadeUp} />
