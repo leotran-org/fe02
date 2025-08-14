@@ -53,6 +53,10 @@ export default function Media() {
     const src = media.file_path;
     const thumb = media.thumbnail_path || src;
 
+    const tags = Array.isArray(media.tags)
+      ? media.tags.map((tag) => String(tag).trim()).filter(Boolean)
+      : [];
+
     return {
       // Primary fields used by components
       type,
@@ -70,6 +74,7 @@ export default function Media() {
       title: media.title,
       description: media.description,
       raw: media,
+      tags: tags.length > 0 ? tags : null,
     };
   }, [media]);
 
@@ -152,7 +157,7 @@ export default function Media() {
           <aside className="lg:col-span-1 flex flex-col gap-6">
             <InfoCard Icon={Icon} type={item.type} date={item.date} duration={item.duration} />
             {/* If your DescriptionCard expects text instead of src, pass `text={item.description}` */}
-            <DescriptionCard src={item.src} description={item.description} />
+            <DescriptionCard src={item.src} description={item.description} tags={item.tags} />
           </aside>
         </motion.div>
       </section>

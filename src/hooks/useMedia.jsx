@@ -14,6 +14,7 @@ import { BACKEND_URL } from "../constants/backend";
  * @property {string} thumbnail_path
  * @property {string} title
  * @property {"image"|"video"|"audio"|string} type_name
+ * @property {string[]} tags
  */
 
 /**
@@ -62,7 +63,14 @@ export function useMedia(slug, options = {}) {
 
     try {
       const { data } = await axios.get(url, { signal: controller.signal, ...axiosConfig });
-      const next = typeof select === "function" ? select(data) : data;
+
+      // Normalize `tags` so consumers can rely on an array.
+      const normalized = /** @type {Media} */ ({
+        ...data,
+        tags: Array.isArray(data?.tags) ? data.tags.filter(Boolean).map(String) : [],
+      });
+
+      const next = typeof select === "function" ? select(normalized) : normalized;
       setMedia(next);
       setStatus("success");
     } catch (err) {
