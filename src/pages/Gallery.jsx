@@ -1,8 +1,10 @@
 // pages/gallery.jsx
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import useDebouncedValue from "../hooks/useDebouncedValue";
 import { useMediaAll } from "../hooks/useMediaList";
+import { useValidateSession } from "../hooks/useValidateSession";
+import Cookies from "js-cookie";
 
 import GalleryHero from "../components/gallery/GalleryHero";
 import FilterControls from "../components/gallery/FilterControls";
@@ -19,6 +21,29 @@ export default function Gallery() {
   // fetch media from backend
   const { data, isLoading, error, refetch } = useMediaAll();
   const items = data ?? [];
+
+  // ---- NEW: validate session on mount to decide IsAdmin
+  const { validate } = useValidateSession({ credentials: "same-origin" });
+  const [sessionData, setSessionData] = useState(null);
+  const checkedCookieRef = useRef(false);
+
+  useEffect(() => {
+    if (checkedCookieRef.current) return; // avoid double-run in Strict Mode
+    checkedCookieRef.current = true;
+
+    const cookieSessionId = Cookies.get("session_id");
+    if (!cookieSessionId) return;
+
+    (async () => {
+      const res = await validate(cookieSessionId);
+      if (res?.ok && res?.data?.session_data) {
+        setSessionData(res.data.session_data);
+      } else {
+        Cookies.remove("session_id", { path: "/" });
+        setSessionData(null);
+      }
+    })();
+  }, [validate]);
 
   // build the available types from fetched data (always include "All")
   const types = useMemo(() => {
@@ -55,6 +80,9 @@ export default function Gallery() {
     return list;
   }, [items, activeType, debounced]);
 
+  // Consider any successfully validated session as "admin" per requirement
+  const isAdmin = !!sessionData;
+
   return (
     <div className="min-h-screen text-white">
       <GalleryHero />
@@ -80,7 +108,8 @@ export default function Gallery() {
         </div>
       )}
 
-      <MasonryGrid items={filtered} />
+      {/* NEW: pass IsAdmin based on successful session validation */}
+      <MasonryGrid items={filtered} IsAdmin={isAdmin} />
 
       {!isLoading && !error && filtered.length === 0 && (
         <div className="px-4 py-8 text-center opacity-70">

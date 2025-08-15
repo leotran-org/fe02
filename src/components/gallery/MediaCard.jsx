@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, Tag, Loader2 } from "lucide-react";
+import { Calendar, Clock, Tag, Loader2, Pencil } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import iconForType from "../../utils/iconForType";
 import { fadeUp } from "../../animations/variants";
 
-export default function MediaCard({ item }) {
+export default function MediaCard({ item, IsAdmin = false }) {
   const navigate = useNavigate();
   const Icon = iconForType(item.type);
 
@@ -19,6 +19,23 @@ export default function MediaCard({ item }) {
       onClick={() => navigate(`/media/${item.slug}`)}
     >
       <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow transition hover:shadow-2xl">
+        {/* Edit button (admins only) */}
+        {IsAdmin && (
+          <button
+            type="button"
+            className="absolute top-3 right-3 z-10 rounded-full border border-white/10 bg-amber-600/80 p-2 text-white backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring focus:ring-amber-300/50"
+            onClick={(e) => {
+              e.stopPropagation(); // prevent card click
+              navigate(`/media/${item.slug}/edit`);
+            }}
+            aria-label="Edit"
+            title="Edit"
+          >
+            <Pencil className="h-4 w-4" />
+            <span className="sr-only">Edit</span>
+          </button>
+        )}
+
         {/* Keep layout stable while the image loads */}
         <div className="relative aspect-[16/9]">
           {/* Loading overlay */}
