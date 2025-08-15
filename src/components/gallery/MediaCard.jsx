@@ -1,11 +1,50 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, Tag, Loader2, Pencil } from "lucide-react";
+import { Calendar, Clock, Tag, Loader2, Pencil, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import iconForType from "../../utils/iconForType";
 import { fadeUp } from "../../animations/variants";
 
-export default function MediaCard({ item, IsAdmin = false }) {
+// Wrapper: no hooks here, so no conditional hook calls.
+export default function MediaCard({ item, IsAdmin = false, variant = "default" }) {
+  return variant === "add" ? (
+    <MediaCardAdd />
+  ) : (
+    <MediaCardDefault item={item} IsAdmin={IsAdmin} />
+  );
+}
+
+/** Admin "Add" card (no conditional hooks) */
+function MediaCardAdd() {
+  const navigate = useNavigate();
+
+  return (
+    <motion.div
+      variants={fadeUp}
+      className="break-inside-avoid my-8 group cursor-pointer"
+      onClick={() => navigate("/media/new")}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && navigate("/media/new")}
+      aria-label="Create new media"
+      title="Create new media"
+    >
+      <div className="relative overflow-hidden rounded-2xl border-2 border-dashed border-white/15 bg-white/5 shadow transition hover:shadow-2xl focus-within:ring focus-within:ring-amber-300/50">
+        <div className="relative aspect-[16/9] grid place-items-center">
+          <div className="flex flex-col items-center justify-center gap-2 text-white/80">
+            <Plus className="h-16 w-16 group-hover:text-amber-300" />
+            <span className="text-XL font-medium group-hover:text-amber-300">
+              New media
+            </span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/** Regular media card (hooks used inside this component only) */
+function MediaCardDefault({ item, IsAdmin }) {
   const navigate = useNavigate();
   const Icon = iconForType(item.type);
 
@@ -25,7 +64,7 @@ export default function MediaCard({ item, IsAdmin = false }) {
             type="button"
             className="absolute top-3 right-3 z-10 rounded-full border border-white/10 bg-amber-600/80 p-2 text-white backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring focus:ring-amber-300/50"
             onClick={(e) => {
-              e.stopPropagation(); // prevent card click
+              e.stopPropagation();
               navigate(`/media/${item.slug}/edit`);
             }}
             aria-label="Edit"
@@ -38,7 +77,6 @@ export default function MediaCard({ item, IsAdmin = false }) {
 
         {/* Keep layout stable while the image loads */}
         <div className="relative aspect-[16/9]">
-          {/* Loading overlay */}
           {!isLoaded && !isError && (
             <div className="absolute inset-0 grid place-items-center bg-white/5">
               <Loader2 className="h-6 w-6 animate-spin text-white/70" />
@@ -46,14 +84,12 @@ export default function MediaCard({ item, IsAdmin = false }) {
             </div>
           )}
 
-          {/* Error/fallback state */}
           {isError && (
             <div className="absolute inset-0 flex items-center justify-center bg-white/5">
               <div className="text-white/60 text-xs">Preview unavailable</div>
             </div>
           )}
 
-          {/* Image */}
           <img
             src={item.thumb}
             alt={item.title}
@@ -66,7 +102,6 @@ export default function MediaCard({ item, IsAdmin = false }) {
             onError={() => setIsError(true)}
           />
 
-          {/* Type badge */}
           <div className="absolute bottom-3 right-3 rounded-full bg-black/50 p-2">
             <Icon className="h-4 w-4 text-white" />
           </div>

@@ -9,7 +9,8 @@ import NotFound from './pages/notfound';
 import Login from './pages/Login';
 import Gallery from './pages/Gallery';
 import Media from './pages/Media';
-//import MediaEdit from './pages/MediaEdit';
+import UploadMedia from './pages/UploadMedia';
+import UpdateMedia from './pages/UpdateMedia';
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/media/:slug" element={<Media />} />
+            <Route path="/media/new" element={<UploadMedia />} />
+            <Route path="/media/:slug/edit" element={<UpdateMedia />} />
             <Route path="/post/:id" element={<Post />} />
             <Route path="/post/:id/edit" element={<PostEdit />} />
             <Route path="*" element={<NotFound />} />

@@ -74,7 +74,7 @@ export default function Media() {
       title: media.title,
       description: media.description,
       raw: media,
-      tags: tags.length > 0 ? tags : null,
+      tags: tags.length > 0 ? tags : [],
     };
   }, [media]);
 
