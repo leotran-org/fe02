@@ -100,7 +100,7 @@ export default function Gallery() {
       )}
 
       {error && (
-        <div className="px-4 py-3 text-red-300">
+        <div className="px-4 py-3 text-red-300 flex flex-col items-center">
           <p className="mb-2">Failed to load media.</p>
           <button className="underline" onClick={refetch}>
             Try again

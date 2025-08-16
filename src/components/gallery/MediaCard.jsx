@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, Tag, Loader2, Pencil, Plus } from "lucide-react";
+import { Calendar, Clock, Tag, Loader2, Pencil, Plus, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import iconForType from "../../utils/iconForType";
 import { fadeUp } from "../../animations/variants";
+import { useDeleteMedia } from "../..//hooks/useDeleteMedia"; // ⬅️ import the hook
 
 // Wrapper: no hooks here, so no conditional hook calls.
 export default function MediaCard({ item, IsAdmin = false, variant = "default" }) {
@@ -51,6 +52,28 @@ function MediaCardDefault({ item, IsAdmin }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  // ⬇️ set up delete hook
+  const { deleteMedia, isLoading: isDeleting, isError: isDeleteError, error: deleteError } =
+    useDeleteMedia({
+      onSuccess: () => {
+        window.location.reload(); // Reset the page after successful delete
+      },
+      onError: (err) => {
+        console.error("Delete failed", err);
+        alert("Failed to delete media.");
+      },
+    });
+
+  const handleDelete = async (e) => {
+    e.stopPropagation();
+    if (isDeleting) return;
+
+    const ok = window.confirm(`Delete “${item.title}”? This cannot be undone.`);
+    if (!ok) return;
+
+    await deleteMedia(item.slug);
+  };
+
   return (
     <motion.div
       variants={fadeUp}
@@ -58,21 +81,37 @@ function MediaCardDefault({ item, IsAdmin }) {
       onClick={() => navigate(`/media/${item.slug}`)}
     >
       <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow transition hover:shadow-2xl">
-        {/* Edit button (admins only) */}
+        {/* Admin action buttons */}
         {IsAdmin && (
-          <button
-            type="button"
-            className="absolute top-3 right-3 z-10 rounded-full border border-white/10 bg-amber-600/80 p-2 text-white backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring focus:ring-amber-300/50"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate(`/media/${item.slug}/edit`);
-            }}
-            aria-label="Edit"
-            title="Edit"
-          >
-            <Pencil className="h-4 w-4" />
-            <span className="sr-only">Edit</span>
-          </button>
+          <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
+            {/* Edit */}
+            <button
+              type="button"
+              className="rounded-full border border-white/10 bg-amber-600/80 p-2 text-white backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring focus:ring-amber-300/50"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/media/${item.slug}/edit`);
+              }}
+              aria-label="Edit"
+              title="Edit"
+            >
+              <Pencil className="h-4 w-4" />
+              <span className="sr-only">Edit</span>
+            </button>
+
+            {/* Delete */}
+            <button
+              type="button"
+              className="rounded-full border border-white/10 bg-red-600/80 p-2 text-white backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring focus:ring-red-300/50 disabled:opacity-50"
+              onClick={handleDelete}
+              disabled={isDeleting}
+              aria-label="Delete"
+              title="Delete"
+            >
+              {isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+              <span className="sr-only">Delete</span>
+            </button>
+          </div>
         )}
 
         {/* Keep layout stable while the image loads */}
@@ -131,6 +170,13 @@ function MediaCardDefault({ item, IsAdmin }) {
           </span>
         ))}
       </div>
+
+      {/* Optional: surface delete error inline */}
+      {IsAdmin && isDeleteError && (
+        <div className="mt-2 text-xs text-red-400">
+          {String(deleteError?.message || "Delete failed")}
+        </div>
+      )}
     </motion.div>
   );
 }

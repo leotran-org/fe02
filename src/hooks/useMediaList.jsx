@@ -114,7 +114,7 @@ export default function GalleryUsingHook() {
   if (isLoading) return <p>Loading…</p>;
   if (error) return <pre style={{ color: "crimson" }}>{String(error)}</pre>;
   if (!MEDIA_ITEMS.length) return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%" }}>
       <p>No media found.</p>
       <button onClick={refetch}>Try again</button>
     </div>
