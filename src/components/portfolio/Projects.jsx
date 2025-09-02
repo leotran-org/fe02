@@ -1,138 +1,205 @@
-import React, { useState } from "react";
-import projectLinks from "../../constants/projectLinks";
-import placeholder from "../../assets/placeholder.svg";
+// components/ProjectSection.jsx
+import { useEffect, useMemo, useState, useCallback } from "react";
+import { usePostsMeta } from "../../hooks/usePostsMeta";
 
-// Tag component
-const Tag = ({ label }) => (
-  <span className="px-3 py-1 text-sm rounded-full border border-white/10 bg-white/10 backdrop-blur-md">
-    {label}
-  </span>
-);
-
-// ProjectCard component
-const ProjectCard = ({ project, dimmed = false, highlight = false }) => {
-  const { image, name, tags, url } = project;
-
-  const baseStyle =
-    "bg-white/5 border border-white/10 rounded-xl overflow-hidden backdrop-blur-md h-[340px] w-[420px] relative flex flex-col justify-end transition-all duration-300";
-
-  const effectStyle = dimmed
-    ? "opacity-30 scale-95"
-    : highlight
-    ? "scale-105 drop-shadow-lg"
-    : "";
-
+// --- Minimal UI primitives (no external UI lib) ---
+function Button({ children, onClick, variant = "solid", className = "", ...rest }) {
+  const base =
+    "inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-950";
+  const styles =
+    variant === "outline"
+      ? "bg-transparent text-amber-400 border-amber-500/50 hover:bg-amber-500/10 focus:ring-amber-500"
+      : "bg-amber-500 text-gray-950 border-amber-500 hover:bg-amber-400 focus:ring-amber-500";
   return (
-    <div className={`${baseStyle} ${effectStyle}`}>
-      <img
-        src={image || placeholder}
-        alt={name}
-        className="w-full h-full object-cover absolute top-0 left-0 z-0"
-        draggable={false}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/70 p-6 z-10 flex flex-col justify-end hover:to-black/80 transition">
-        <h3 className="text-lg font-semibold mb-3 drop-shadow">{name}</h3>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {tags?.map((tag, i) => (
-            <Tag key={i} label={tag} />
-          ))}
-        </div>
-        {url && (
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-5 py-2 text-sm rounded-full border border-white/20 bg-white/10 backdrop-blur-md transition hover:bg-white/30 hover:-translate-y-1"
-          >
-            Details
-          </a>
-        )}
-      </div>
+    <button onClick={onClick} className={`${base} ${styles} ${className}`} {...rest}>
+      {children}
+    </button>
+  );
+}
+
+function Card({ children, className = "" }) {
+  return (
+
+    <div className={`bg-zinc-800 border border-gray-800 rounded-xl shadow-sm overflow-hidden transition ${className}`}>
+      {children}
     </div>
   );
-};
+}
 
-// ProjectsSection component
-const ProjectsSection = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+function CardMedia({ src, alt, className = "" }) {
+  if (!src) return null;
+  // Fixed, equal media height for ALL cards
+  return <img src={src} alt={alt} className={`w-full h-56 object-cover ${className}`} />;
+}
 
-  // Split into columns of 2
-  const columns = [];
-  for (let i = 0; i < projectLinks.length; i += 2) {
-    columns.push(projectLinks.slice(i, i + 2));
-  }
-  const totalColumns = columns.length;
+function CardBody({ children, className = "" }) {
+  return <div className={`p-4 ${className}`}>{children}</div>;
+}
 
-  const goPrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + totalColumns) % totalColumns);
-  };
+// --- Helpers ---
+const clamp3 = (n, i) => (n === 0 ? [] : [((i - 1 + n) % n), i % n, ((i + 1) % n)]);
 
-  const goNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % totalColumns);
-  };
+// --- Main Section ---
+export default function ProjectSection() {
+  const { posts, loading, error } = usePostsMeta();
 
-  const getColumn = (offset) =>
-    columns[(currentIndex + offset + totalColumns) % totalColumns];
+  // We only care about the latest 12 from the hook output order
+  const dataset = useMemo(() => posts.slice(0, 12), [posts]);
+  const count = dataset.length;
+
+  const [index, setIndex] = useState(0); // current (center) project index within dataset
+  const [direction, setDirection] = useState("next"); // "next" | "prev"
+
+  // Keep index in range when data arrives/changes
+  useEffect(() => {
+    if (count === 0) return;
+    setIndex((i) => (i >= count ? 0 : i));
+  }, [count]);
+
+  const goPrev = useCallback(() => {
+    if (count === 0) return;
+    setDirection("prev");
+    setIndex((i) => (i - 1 + count) % count);
+  }, [count]);
+
+  const goNext = useCallback(() => {
+    if (count === 0) return;
+    setDirection("next");
+    setIndex((i) => (i + 1) % count);
+  }, [count]);
+
+  // Keyboard arrows navigation
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "ArrowLeft") goPrev();
+      if (e.key === "ArrowRight") goNext();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [goPrev, goNext]);
+
+  if (loading) return <p className="px-4 sm:px-6 lg:px-8 text-gray-300">Loading projects...</p>;
+  if (error) return <p className="px-4 sm:px-6 lg:px-8 text-red-400">Error: {error}</p>;
+  if (count === 0) return <p className="px-4 sm:px-6 lg:px-8 text-gray-300">No projects found.</p>;
+
+  const visible = clamp3(count, index);
 
   return (
-    <section id="projects" className="relative py-24 px-8 mt-10 text-white">
-      {/* Section Header */}
-      <div
-        className="text-center mb-16"
-        data-aos="fade-up"
-        data-aos-duration="2000"
-        data-aos-delay="300"
-      >
-        <h2 className="text-3xl font-bold">
-          <span className="text-primary text-amber-400">My Projects & Activities</span>
-        </h2>
-        <p className="mt-2 text-sm text-white/60">
-          {currentIndex + 1} / {totalColumns}
-        </p>
-      </div>
-
-      {/* Navigation Buttons */}
-      <div className="flex items-center justify-center gap-8 mb-8">
-        <button
-          onClick={goPrev}
-          className="text-white text-3xl bg-white/10 hover:bg-white/20 rounded-full w-12 h-12 flex items-center justify-center transition"
-        >
-          ‹
-        </button>
-        <button
-          onClick={goNext}
-          className="text-white text-3xl bg-white/10 hover:bg-white/20 rounded-full w-12 h-12 flex items-center justify-center transition"
-        >
-          ›
-        </button>
-      </div>
-
-      {/* Carousel Display */}
-      <div className="flex justify-center items-start gap-6">
-        {/* Previous Group (dimmed) */}
-        <div className="flex flex-col gap-6">
-          {getColumn(-1).map((project, idx) => (
-            <ProjectCard key={`prev-${idx}`} project={project} dimmed />
-          ))}
+    <section className="py-10 px-4 sm:px-6 lg:px-8">
+      <div>
+        <div className="flex items-center justify-center mb-6">
+          <h2 className="text-4xl font-bold text-amber-400">Latest Projects</h2>
         </div>
 
-        {/* Current Group (highlighted) */}
-        <div className="flex flex-col gap-6">
-          {getColumn(0).map((project, idx) => (
-            <ProjectCard key={`curr-${idx}`} project={project} highlight />
-          ))}
+        {/* 3-card viewport with slide animation */}
+        <div className="relative overflow-hidden">
+          <div
+            key={index}
+            className={`grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch animate-${direction === "next" ? "slide-left" : "slide-right"}`}
+          >
+            {visible.map((vi, idx) => {
+              const p = dataset[vi];
+              const isCenter = idx === 1 || count < 3;
+              const isSide = !isCenter && count >= 3;
+
+              return (
+                <button
+                    onClick={isSide ? (idx === 0 ? goPrev : goNext) : undefined}
+                >
+                <Card
+                  key={p.id}
+                  className={[
+                    "h-[30rem] flex flex-col will-change-opacity shadow-lg shadow-[10px_10px_20px_0_rgba(0,0,0,0.5)]",
+                    // Dim previous/next cards
+                    isSide ? "opacity-40 hover:opacity-80" : "",
+                  ].join(" ")}
+                  aria-current={isCenter ? "true" : undefined}
+                    // if click the previous/next card, go to it, otherwise do nothing
+                >
+                  {/* Equal media height for all cards */}
+                  <CardMedia src={p.image} alt={p.title} />
+
+                  <CardBody className="flex flex-col grow">
+                    <h3 className="text-lg font-semibold line-clamp-2">{p.title}</h3>
+                    {p.excerpt && (
+                      <p className="mt-1 text-sm text-zinc-300/80 line-clamp-3">{p.excerpt}</p>
+                    )}
+                    <div className="mt-3 text-xs text-gray-400 flex items-center gap-2">
+                      <span>{p.date}</span>
+                      <span>•</span>
+                      <span>{p.readTime}</span>
+                    </div>
+                    {Array.isArray(p.categories) && p.categories.length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {p.categories.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {p.slug && (
+                      <a
+                        href={`/${p.slug}`}
+                        className="mt-auto mb-4 inline-block text-sm font-medium text-amber-400 underline-offset-4 hover:underline"
+                      >
+                        Read more
+                      </a>
+                    )}
+                  </CardBody>
+                </Card>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Next Group (dimmed) */}
-        <div className="flex flex-col gap-6">
-          {getColumn(1).map((project, idx) => (
-            <ProjectCard key={`next-${idx}`} project={project} dimmed />
-          ))}
+        {/* Dots + arrows */}
+        <div className="mt-6 flex justify-center gap-2">
+          <div className="flex items-center gap-2">
+            <Button variant="outline" onClick={goPrev} aria-label="Previous project">
+              <svg viewBox="0 0 20 20" fill="currentColor" className="w-2 h-4">
+                <path
+                  fillRule="evenodd"
+                  d="M12.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L8.414 10l4.293 4.293a1 1 0 010 1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Button>
+
+            {dataset.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                aria-label={`Go to project ${i + 1}`}
+                className={`w-2.5 h-2.5 rounded-full transition ${i === index ? "bg-amber-500" : "bg-gray-700 hover:bg-gray-600"}`}
+              />
+            ))}
+
+            <Button variant="outline" onClick={goNext} aria-label="Next project">
+              <svg viewBox="0 0 20 20" fill="currentColor" className="w-2 h-4">
+                <path
+                  fillRule="evenodd"
+                  d="M7.293 4.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a 1 0 11-1.414-1.414L11.586 10 7.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Button>
+          </div>
         </div>
+
+        {/* Local styles for slide animation (no Tailwind config required) */}
+        <style>{`
+          @keyframes slide-left { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+          @keyframes slide-right { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: translateX(0); } }
+          .animate-slide-left { animation: slide-left 240ms ease-out; }
+          .animate-slide-right { animation: slide-right 240ms ease-out; }
+        `}</style>
       </div>
     </section>
   );
-};
-
-export default ProjectsSection;
+}
 

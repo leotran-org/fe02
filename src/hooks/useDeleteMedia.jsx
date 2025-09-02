@@ -16,6 +16,42 @@ import { BACKEND_URL } from "../constants/backend";
  *   error: any,
  *   deleteMedia: (slug: string) => Promise<void>
  * }}
+ 
+example response:
+ {
+  "blocks": [
+    {
+      "block_id": 1,
+      "content": "<h1>Welcome to SQL</h1>",
+      "next_block_id": 2,
+      "previous_block_id": null
+    },
+    {
+      "block_id": 2,
+      "content": "<p>SQL stands for Structured Query Language...</p>",
+      "next_block_id": 3,
+      "previous_block_id": 1
+    },
+    {
+      "block_id": 3,
+      "content": "<p>Let\u2019s write your first query!</p>",
+      "next_block_id": null,
+      "previous_block_id": 2
+    }
+  ],
+  "description": "A beginner friendly introduction to SQL basics.",
+  "first_block_id": 1,
+  "last_updated": "2025-08-16 13:18:09",
+  "post_id": 1,
+  "read_time": 5,
+  "slug": "getting-started-with-sql",
+  "tags": [
+    "SQL"
+  ],
+  "thumbnail_path": "https://picsum.photos/200/300",
+  "title": "Getting Started with SQL"
+}
+
  */
 export function useDeleteMedia(options = {}) {
   const { onSuccess, onError, axiosConfig } = options;

@@ -50,7 +50,6 @@ function ExperienceCard({ icon, title, description }) {
         </div>
     );
 }
-
 // Helper to group the data into N groups for 2-row layout
 function groupIntoColumns(data, rowCount = 2) {
     const columns = Array.from({ length: Math.ceil(data.length / rowCount) }, () =>
@@ -78,8 +77,10 @@ export default function Experience() {
                         <span className="text-amber-400">Kinh Nghiệm Lãnh Đạo</span>
                     </h2>
 
-                    <div className="md:flex md:justify-center md:overflow-visible overflow-x-auto scrollbar-hide w-full px-4 md:px-0">
+                    <div className="md:flex md:justify-center overflow-x-auto w-full px-4 md:px-6">
                         <div className="flex gap-x-6 w-max md:w-auto pb-4">
+                            <div className="w-[150px] flex-shrink-0 bg-transparent rounded-2xl p-6" />
+
                             {columns.map((col, idx) => (
                                 <div
                                     key={idx}
@@ -98,6 +99,8 @@ export default function Experience() {
                                     )}
                                 </div>
                             ))}
+                            <div className="w-[150px] flex-shrink-0 bg-transparent rounded-2xl p-6" />
+
                         </div>
                     </div>
                 </div>

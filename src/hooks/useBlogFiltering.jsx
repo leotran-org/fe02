@@ -1,25 +1,27 @@
 // hooks/useBlogFiltering.js
 import { useState, useMemo, useEffect } from "react";
-import { BLOG_POSTS, PAGE_SIZE } from "../constants/postsMeta";
+import { PAGE_SIZE } from "../constants/postsMeta"; // keep PAGE_SIZE
 import { getCategories } from "../utils/blogUtils";
+import { usePostsMeta } from "./usePostsMeta";
 
 export const useBlogFiltering = () => {
+  const { posts, loading, error } = usePostsMeta();
   const [activeCategory, setActiveCategory] = useState("All");
   const [page, setPage] = useState(1);
 
-  // Filter posts by category
   const filteredPosts = useMemo(() => {
-    if (activeCategory === "All") return BLOG_POSTS;
-    return BLOG_POSTS.filter((p) => getCategories(p).includes(activeCategory));
-  }, [activeCategory]);
+    if (!posts.length) return [];
+    if (activeCategory === "All") return posts;
+    return posts.filter((p) => getCategories(p).includes(activeCategory));
+  }, [posts, activeCategory]);
 
-  // Reset to first page when category changes
   useEffect(() => {
     setPage(1);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }, [activeCategory]);
 
-  // Compute paging
   const totalPages = useMemo(
     () => Math.max(1, Math.ceil(filteredPosts.length / PAGE_SIZE)),
     [filteredPosts.length]
@@ -27,31 +29,27 @@ export const useBlogFiltering = () => {
 
   const pagedPosts = useMemo(() => {
     const start = (page - 1) * PAGE_SIZE;
-    const end = start + PAGE_SIZE;
-    return filteredPosts.slice(start, end);
+    return filteredPosts.slice(start, start + PAGE_SIZE);
   }, [filteredPosts, page]);
 
-  // Clamp if data shrinks
   useEffect(() => {
     if (page > totalPages) setPage(totalPages);
   }, [page, totalPages]);
-
-  const handlePageChange = (newPage) => {
-    setPage(newPage);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const handleCategoryChange = (category) => {
-    setActiveCategory(category);
-  };
 
   return {
     activeCategory,
     page,
     totalPages,
     pagedPosts,
-    handlePageChange,
-    handleCategoryChange,
+    loading,
+    error,
+    handlePageChange: (newPage) => {
+      setPage(newPage);
+      if (typeof window !== "undefined") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    },
+    handleCategoryChange: setActiveCategory,
   };
 };
 
